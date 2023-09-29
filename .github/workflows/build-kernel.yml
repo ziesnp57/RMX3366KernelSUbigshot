@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build Kernel
+    name: 构建内核
     runs-on: ubuntu-latest
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -57,7 +57,7 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
-    - name: Setup Configuration for Kernel
+    - name: 设置内核配置
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/vendor/sm8250_defconfig
