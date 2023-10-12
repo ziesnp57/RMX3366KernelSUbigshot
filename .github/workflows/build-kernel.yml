@@ -63,7 +63,7 @@ jobs:
 
     - name: 开启Kvm
       run: |
-         cd $GITHUB_WORKSPACE/kernel_workspace
+         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
          echo "CONFIG_VIRTUALIZATION=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
          echo "CONFIG_KVM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
          echo "CONFIG_VHOST_NET=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
