@@ -30,7 +30,7 @@ jobs:
     - name: 下载内核源码
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://github.com/Blackmanx/kernel_realme_sm8250 -b bigshot-AOSP android-kernel --depth=1
+        git clone https://github.com/Blackmanx/kernel_realme_sm8250 -b bigshot-staging android-kernel --depth=1
 
     - name: 开启lxc和docker配置
       run: |
