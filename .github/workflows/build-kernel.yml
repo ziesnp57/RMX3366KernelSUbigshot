@@ -61,8 +61,6 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
-        git clone https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel.git && patch -p1 < kali-nethunter-kernel/patches/4.19/add-rtl88xxau-5.6.4.2-drivers.path && patch -p1 < kali-nethunter-kernel/patches/4.19/fix-ath9k-naming-conflict.patch && patch -p1 < kali-nethunter-kernel/patches/4.19/add-wifi-injection-4.14.patch
-
     - name: 开启Kvm
       run: |
          cd $GITHUB_WORKSPACE/kernel_workspace
@@ -70,7 +68,15 @@ jobs:
          echo "CONFIG_KVM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
          echo "CONFIG_VHOST_NET=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
          echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
-               
+
+    - name: 开启LTO
+      run: |
+         cd $GITHUB_WORKSPACE/kernel_workspace
+         echo "CONFIG_LTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_LTO_CLANG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_THINLTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_LTO_NONE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+          
     - name: 设置内核配置
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
