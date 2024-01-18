@@ -80,8 +80,8 @@ jobs:
     - name: 开启Kali-Nethunter 
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        patch -p1 < $GITHUB_WORKSPACE/add-rtl8188eus-to-rtl8xxxu-drivers.patch
-        patch -p1 < $GITHUB_WORKSPACE/add-rtl88xxau-5.6.4.2-drivers.patch
+        #patch -p1 < $GITHUB_WORKSPACE/add-rtl8188eus-to-rtl8xxxu-drivers.patch
+        #patch -p1 < $GITHUB_WORKSPACE/add-rtl88xxau-5.6.4.2-drivers.patch
         patch -p1 < $GITHUB_WORKSPACE/add-wifi-injection-4.14.patch
         patch -p1 < $GITHUB_WORKSPACE/fix-ath9k-naming-conflict.patch
         bash $GITHUB_WORKSPACE/Kali-defconfig-checker.sh arch/arm64/configs/vendor/sm8250_defconfig
@@ -114,12 +114,6 @@ jobs:
         sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel3/anykernel.sh
         cp android-kernel/out/arch/arm64/boot/Image AnyKernel3/
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
-
-    - name: 上传Image
-      uses: actions/upload-artifact@v3
-      with:
-        name: Image-KernelSU-${{ env.BUILD_TIME }}
-        path: kernel_workspace/android-kernel/out/arch/arm64/boot/Image
 
     - name: 上传AnyKernel3
       uses: actions/upload-artifact@v3
