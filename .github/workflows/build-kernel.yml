@@ -40,7 +40,24 @@ jobs:
         echo 'source "utils/Kconfig"' >> "Kconfig"
 
         echo "CONFIG_DOCKER=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-
+        
+        echo "CONFIG_FHANDLE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_UNIX_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_PACKET_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_NETLINK_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_NF_NAT_IPV6=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VIRTUALIZATION=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_KVM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VHOST_NET=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         
+        echo "CONFIG_LTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_LTO_CLANG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_THINLTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_LTO_NONE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+     
         sed -i '/CONFIG_ANDROID_PARANOID_NETWORK/d' arch/arm64/configs/vendor/sm8250_defconfig
         echo "# CONFIG_ANDROID_PARANOID_NETWORK is not set" >> arch/arm64/configs/vendor/sm8250_defconfig
           
