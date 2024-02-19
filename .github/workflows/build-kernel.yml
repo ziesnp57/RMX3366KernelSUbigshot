@@ -105,7 +105,8 @@ jobs:
       run: |
          cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
          git clone https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel
-     
+         ./build.sh
+         
     - name: 设置内核配置
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
