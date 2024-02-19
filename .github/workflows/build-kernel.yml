@@ -101,6 +101,11 @@ jobs:
          echo "CONFIG_THINLTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
          echo "CONFIG_LTO_NONE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
      
+    - name: 开启kali-nethunter
+      run: |
+         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+         git clone https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel
+     
     - name: 设置内核配置
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
