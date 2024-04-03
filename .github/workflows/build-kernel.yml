@@ -118,7 +118,7 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: build-kernel-${{ env.UPLOADNAME }}
-        max-size: 2G
+        max-size: 4G
 
     - name: 构建内核
       run: |
