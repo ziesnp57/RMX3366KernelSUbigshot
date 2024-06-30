@@ -99,12 +99,6 @@ jobs:
          sed -i 's/CONFIG_THINLTO=y/CONFIG_THINLTO=n/' sm8250_defconfig
          echo "CONFIG_LTO_NONE=y" >> sm8250_defconfig
          echo "CONFIG_OVERLAY_FS=y" >> sm8250_defconfig
-            
-    - name: 开启kali-nethunter
-      run: |
-         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-         git clone https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel
-         
          
     - name: 设置内核配置
       run: |
