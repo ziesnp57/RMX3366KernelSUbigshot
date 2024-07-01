@@ -41,21 +41,23 @@ jobs:
 
         echo "CONFIG_DOCKER=y" >> arch/arm64/configs/vendor/sm8250_defconfig
         
-        echo "CONFIG_VIRTUALIZATION=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-        echo "CONFIG_VHOST_NET=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-        echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-
-        echo "CONFIG_NF_NAT_IPV6=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-        echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-        echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> arch/arm64/configs/vendor/sm8250_defconfig
-        
         echo "CONFIG_FHANDLE=y" >> arch/arm64/configs/vendor/sm8250_defconfig
         echo "CONFIG_UNIX_DIAG=y" >> arch/arm64/configs/vendor/sm8250_defconfig
         echo "CONFIG_PACKET_DIAG=y" >> arch/arm64/configs/vendor/sm8250_defconfig
         echo "CONFIG_NETLINK_DIAG=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_NF_NAT_IPV6=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VIRTUALIZATION=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_KVM=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VHOST_NET=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> arch/arm64/configs/vendor/sm8250_defconfig
         
-
-  
+        echo "CONFIG_LTO=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_LTO_CLANG=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_THINLTO=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_LTO_NONE=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+     
         sed -i '/CONFIG_ANDROID_PARANOID_NETWORK/d' arch/arm64/configs/vendor/sm8250_defconfig
         echo "# CONFIG_ANDROID_PARANOID_NETWORK is not set" >> arch/arm64/configs/vendor/sm8250_defconfig
           
@@ -78,46 +80,50 @@ jobs:
 
     - name: 开启Kvm
       run: |
-         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/arch/arm64/configs/vendor
-         echo "CONFIG_FHANDLE=y" >> sm8250_defconfig
-         echo "CONFIG_UNIX_DIAG=y" >> sm8250_defconfig
-         echo "CONFIG_PACKET_DIAG=y" >> sm8250_defconfig
-         echo "CONFIG_NETLINK_DIAG=y" >> sm8250_defconfig
-         echo "CONFIG_NF_NAT_IPV6=y" >> sm8250_defconfig
-         echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> sm8250_defconfig
-         echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> sm8250_defconfig
-         echo "CONFIG_VIRTUALIZATION=y" >> sm8250_defconfig
-         echo "CONFIG_KVM=y" >> sm8250_defconfig
-         echo "CONFIG_VHOST_NET=y" >> sm8250_defconfig
-         echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> sm8250_defconfig
+         cd $GITHUB_WORKSPACE/kernel_workspace
+         echo "CONFIG_FHANDLE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_UNIX_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_PACKET_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_NETLINK_DIAG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_NF_NAT_IPV6=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_VIRTUALIZATION=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_KVM=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_VHOST_NET=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
 
     - name: 开启LTO
       run: |
-         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/arch/arm64/configs/vendor
-         sed -i 's/CONFIG_LTO=y/CONFIG_LTO=n/' sm8250_defconfig
-         sed -i 's/CONFIG_LTO_CLANG=y/CONFIG_LTO_CLANG=n/' sm8250_defconfig
-         sed -i 's/CONFIG_THINLTO=y/CONFIG_THINLTO=n/' sm8250_defconfig
-         echo "CONFIG_LTO_NONE=y" >> sm8250_defconfig
-         echo "CONFIG_OVERLAY_FS=y" >> sm8250_defconfig
+         cd $GITHUB_WORKSPACE/kernel_workspace
+         echo "CONFIG_LTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_LTO_CLANG=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_THINLTO=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+         echo "CONFIG_LTO_NONE=y" >> android-kernel/arch/arm64/configs/vendor/sm8250_defconfig
+     
+    - name: 开启kali-nethunter
+      run: |
+         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+     
          
     - name: 设置内核配置
       run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/arch/arm64/configs/vendor
-        echo "CONFIG_HAVE_KPROBES=y" >> sm8250_defconfig
-        echo "CONFIG_KPROBE_EVENTS=y" >> sm8250_defconfig
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/vendor/sm8250_defconfig
+        echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/vendor/sm8250_defconfig
 
     - name: 设置ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: build-kernel-${{ env.UPLOADNAME }}
-        max-size: 4G
+        max-size: 2G
 
     - name: 构建内核
       run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/arch/arm64/configs/vendor
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang/bin:$PATH
-        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC=clang O=out ARCH=arm64 sm8250_defconfig
-        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC="ccache clang" O=out ARCH=arm64 sm8250_defconfig
+        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC=clang O=out ARCH=arm64 vendor/sm8250_defconfig
+        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC="ccache clang" O=out ARCH=arm64
 
     - name: 制作Anykernel3
       run: |
