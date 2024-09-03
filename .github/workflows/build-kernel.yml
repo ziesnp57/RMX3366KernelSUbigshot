@@ -17,7 +17,7 @@ jobs:
     
     - name: Setup build kernel environment
       run: |
-        echo "BUILD_TIME=$(TZ=Asia/Kuala_Lumpur date "+%Y %m %d %H,%M")" >> $GITHUB_ENV
+        echo "BUILD_TIME=$(TZ=Asia/Kuala_Lumpur date "+%Y/%m/%d/%H/%M")" >> $GITHUB_ENV
         sudo apt-get update
         sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python2 python3
         mkdir -p $GITHUB_WORKSPACE/kernel_workspace
@@ -30,12 +30,12 @@ jobs:
     - name: Download kernel source
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://github.com/ziesnp57/kernel_realme_sm8250 -b bigshot android-kernel --depth=1
+        git clone https://github.com/Blackmanx/kernel_realme_sm8250 -b bigshot android-kernel --depth=1
 
     - name: Setup KernelSU
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
     - name: Setup Configuration for Kernel
       run: |
@@ -53,8 +53,8 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang/bin:$PATH
-        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC=clang O=out ARCH=arm64 vendor/sm8250_defconfig
-        make -j$(nproc --all) CROSS_COMPILE=aarch64-linux-gnu- CC="ccache clang" O=out ARCH=arm64
+        make -j$(nproc --all) CC=clang O=out ARCH=arm64 AR=llvm-ar NM=llvm-nm OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM=1 LLVM_IAS=1 vendor/sm8250_defconfig
+        make -j$(nproc --all) CC="ccache clang" O=out ARCH=arm64 AR=llvm-ar NM=llvm-nm OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM=1 LLVM_IAS=1
 
     - name: Make Anykernel3
       run: |
